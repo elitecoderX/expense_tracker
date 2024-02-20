@@ -125,8 +125,6 @@
 		</script>
 		<script>
 						var data = {{ graphJSON | safe }};
-						         console.log(data)
-
 						var dates = data.map(function(item) {
 						    return item.date;
 						});
@@ -153,17 +151,17 @@
 
 						Plotly.newPlot('timeSeries', [trace1], layout1,{displayModeBar: false});
 						var categories = data.map(function(item) {
-						    return item.category;
+						    return item.category.replace(item.category[0], item.category[0].toUpperCase());
 						});
 
-						var categoryCounts = {};
-						for (var i = 0; i < categories.length; i++) {
-						    categoryCounts[categories[i]] = categoryCounts[categories[i]] ? categoryCounts[categories[i]] + 1 : 1;
-						}
+
+						var amounts = data.map(function(item) {
+						    return item.amount;
+						});
 
 						var trace2 = {
-						    labels: Object.keys(categoryCounts),
-						    values: Object.values(categoryCounts),
+						    labels: categories,
+						    values: amounts,
 						    type: 'pie'
 						};
                         var layout2 = {
